@@ -14,6 +14,11 @@ mongoose.connect(mongoDbPath).then(function(){
         res.json({message: "HomePage"})
     });
 
+    app.get("/notes/list/:userId",async function(req,res){
+        var notes = await NoteModel.find({userId: req.params.userId});
+        res.json(notes);
+    })
+
     var router = require('./routes/postRoutes');
     app.use("/notes/", router)
 });
